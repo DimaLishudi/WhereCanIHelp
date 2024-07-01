@@ -1,19 +1,9 @@
 import datetime
-import enum
 from typing import Annotated, Optional
 
 from sqlalchemy import (
-    TIMESTAMP,
-    CheckConstraint,
-    Column,
-    Enum,
     ForeignKey,
-    Index,
-    Integer,
-    MetaData,
-    PrimaryKeyConstraint,
     String,
-    Table,
     text,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -40,6 +30,9 @@ class Organization(Base):
     needs: Mapped[list["OrgNeeds"]] = relationship(
         back_populates="organization",
     )
+    # org_actions: Mapped[list["Actions"]] = relationship(
+    #     back_populates="organization",
+    # )
 
     def __repr__(self) -> str:
         return f"Organization(id={self.id}, name={self.name}, phone={self.phone})"
@@ -50,6 +43,10 @@ class Helptype(Base):
 
     id: Mapped[intpk]
     name: Mapped[str]
+    # actions: Mapped[list["Actions"]] = relationship(
+    #     back_populates="help_type",
+    # )
+
 
 class User(Base):
     __tablename__ = "users"
@@ -60,6 +57,10 @@ class User(Base):
     email: Mapped[str]
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
+    # user_actions: Mapped[list["Actions"]] = relationship(
+    #     back_populates="user",
+    # )
+
 
 
 class Actions(Base):
@@ -74,7 +75,12 @@ class Actions(Base):
     action_date: Mapped[datetime.datetime]
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
+    organization: Mapped["Organization"] = relationship(backref="org_actions",  foreign_keys=[organization_id])
+    user: Mapped["User"] = relationship(backref="user_actions",  foreign_keys=[user_id])
 
+    def __repr__(self):
+        return f"Action(id={self.id}, organization={self.organization_id}, amount={self.amount}, action_date={self.action_date})"
+    
 
 class OrgNeeds(Base):
     __tablename__ = "org_needs"

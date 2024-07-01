@@ -51,6 +51,24 @@ def main():
     # SyncORM.add_user_capability(benjamin, need9)
     # SyncORM.add_user_capability(benjamin, need10, "Owns Concert Hall")
 
+    org1 = SyncORM.get_org_by_id(1)
+    org2 = SyncORM.get_org_by_id(2)
+    org3 = SyncORM.get_org_by_id(3)
+    org4 = SyncORM.get_org_by_id(4)
+
+    adam = SyncORM.get_user_by_id(1)
+    benjamin = SyncORM.get_user_by_id(2)
+
+    need1 = SyncORM.get_need_by_id(1)
+    need2 = SyncORM.get_need_by_id(2)
+    need3 = SyncORM.get_need_by_id(3)
+    need4 = SyncORM.get_need_by_id(4)
+    need5 = SyncORM.get_need_by_id(5)
+    need6 = SyncORM.get_need_by_id(6)
+    need7 = SyncORM.get_need_by_id(7)
+    need8 = SyncORM.get_need_by_id(8)
+
+
     # SyncORM.insert_action(adam, org1, need1)
     # SyncORM.insert_action(adam, org1, need2)
     # SyncORM.insert_action(adam, org2, need3)
@@ -59,18 +77,16 @@ def main():
     # SyncORM.insert_action(benjamin, org2, need6)
     # SyncORM.insert_action(benjamin, org1, need7)
     # SyncORM.insert_action(benjamin, org1, need8)
-    # SyncORM.insert_action(benjamin, org1, need9)
-    # SyncORM.insert_action(benjamin, org1, need10, descsription="Concert Hall every other Tuesday 13:00 to 18:00")
-    org = SyncORM.get_org_by_id(5)
-    print(org)
 
-    benjamin = SyncORM.get_user_by_id(2)
+    # org = SyncORM.get_org_by_id(5)
+    # print(org)
+
 
 
     ben_actions = SyncORM.get_user_actions(benjamin)
+    print(f"{benjamin.name}'s actions:")
     for action in ben_actions:
         print(action)
 
 if __name__ == "__main__":
     main()
-    

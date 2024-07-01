@@ -103,9 +103,12 @@ class SyncORM:
         with session_factory() as session:
             session.expire_on_commit = False
             new_action = Actions()
-            new_action.organization_id = org.id
-            new_action.user_id = user.id
-            new_action.help_type_id = need.id
+            # new_action.organization_id = org.id
+            # new_action.user_id = user.id
+            # new_action.help_type_id = need.id
+            new_action.organization = org
+            new_action.user = user
+            new_action.help_type = need
             new_action.amount = amount
             new_action.action_date = action_date
             new_action.description = descsription
@@ -130,6 +133,14 @@ class SyncORM:
             user = session.get(User, id)
             session.expunge_all()
             return user
+
+    @staticmethod
+    def get_need_by_id(id):
+        with session_factory() as session:
+            session.expire_on_commit = False
+            need = session.get(Helptype, id)
+            session.expunge_all()
+            return need
 
     
 
